@@ -1,0 +1,129 @@
+/* 🔹 Import des polices personnalisées */
+@import url(https://fonts.bunny.net/css?family=anton:400);
+@import url(https://fonts.bunny.net/css?family=bebas-neue:400);
+@import url(https://fonts.bunny.net/css?family=caveat:400,500,600,700);
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Mega:wght@100..900&display=swap');
+@import url(https://fonts.bunny.net/css?family=advent-pro:400,400i,500,600,600i,700,700i,800,800i);
+@import url(https://fonts.bunny.net/css?family=source-sans-3:400,500,500i,600,600i,700,700i,800,800i,900i);
+
+/* Police locale Mokoto */
+@font-face {
+  font-family: 'Mokoto';
+  src: url("Mokoto Demo.ttf") format("truetype");
+}
+
+/* 🔹 Import de Tailwind */
+@import "tailwindcss";
+
+/* 🔹 Configuration personnalisée de Tailwind */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Typographie */
+  --font-sans: 'Source Sans 3', sans-serif; /* Police par défaut pour le texte */
+  --font-display: 'Lexend Mega', sans-serif; /* Police pour les titres */
+
+  /* Couleurs — Mode Light */
+  --color-accent: #03045e;
+  --color-accent-hover: #0077b6;
+  --color-accent-light: #90e0ef;
+
+  /* Couleurs — Mode Dark */
+  --color-accent-dark: #457b9d;
+  --color-accent-dark-hover: #43aa8b;
+  --color-accent-dark-light: #ffffff;
+
+  /* Surface */
+  --color-surface: #FAFAFA;
+}
+
+/*  Styles globaux pour le body (background + polices) */
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    color: #1f2937;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  body {
+    background-color: #ffffff !important; /* Background en mode light */
+    font-family: var(--font-sans);
+    color: inherit;
+    min-height: 100vh;
+  }
+
+  html.dark body {
+    background-color: #0b0d14 !important; /* Background en mode dark */
+    color: #e2e8f0;
+  }
+
+  /* Typographie Display */
+  .font-display {
+    font-family: var(--font-display), var(--font-sans), sans-serif;
+  }
+
+  /* Classes utilitaires pour les autres polices */
+  .font-anton { font-family: 'Anton', sans-serif; }
+  .font-bebas { font-family: 'Bebas Neue', display; }
+  .font-caveat { font-family: 'Caveat', handwriting; }
+  .font-lexend { font-family: 'Lexend Mega', sans-serif; }
+  .font-advent { font-family: 'Advent Pro', sans-serif; }
+  .font-mokoto { font-family: 'Mokoto', sans-serif; }
+}
+
+/* 🔹 Scrollbar personnalisée */
+@layer utilities {
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--color-accent) 25%, transparent);
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in srgb, var(--color-accent) 50%, transparent);
+  }
+}
+
+/*  Custom Cursor */
+@media (pointer: fine) {
+  html.has-custom-cursor,
+  html.has-custom-cursor * {
+    cursor: none !important;
+  }
+}
+
+/* Animation personnalisée */
+@keyframes orbit {
+  0% {
+    transform: rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg));
+  }
+  100% {
+    transform: rotate(calc(var(--angle) * 1deg + 360deg)) translateY(calc(var(--radius) * 1px)) rotate(calc((var(--angle) * -1deg) - 360deg));
+  }
+}
+
+/* Applique l'animation */
+.animate-orbit {
+  animation: orbit calc(var(--duration) * 1s) linear infinite;
+}
+
+/* Option pour l'animation inversée */
+.animate-orbit-reverse {
+  animation-direction: reverse;
+}
+
+@keyframes orbit {
+  0% {
+    transform: rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg));
+  }
+  100% {
+    transform: rotate(calc(var(--angle) * 1deg + 360deg)) translateY(calc(var(--radius) * 1px)) rotate(calc((var(--angle) * -1deg) - 360deg));
+  }
+}
