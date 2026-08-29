@@ -1,19 +1,22 @@
 import React from "react";
 import { MapPin, Mail, Calendar, Terminal, CheckCircle2 } from "lucide-react";
 import { Reveal, StaggerContainer, StaggerItem } from "./AnimatedReveal.jsx";
+import { useLanguage } from "../context/LanguageContext.jsx";
 
 export default function About({ personal }) {
+  const { t } = useLanguage();
+
   const infoCards = [
     {
       id: "info-loc",
-      label: "Localisation",
+      label: t.about.cards.location,
       value: personal.location,
       icon: MapPin,
       color: "bg-accent/10 dark:bg-accent-dark/20 border border-accent/20 dark:border-accent-dark/40 text-accent dark:text-accent-dark"
     },
     {
       id: "info-email",
-      label: "Courriel direct",
+      label: t.about.cards.email,
       value: personal.email,
       icon: Mail,
       color: "bg-accent/10 dark:bg-accent-dark/20 border border-accent/20 dark:border-accent-dark/40 text-accent dark:text-accent-dark",
@@ -21,15 +24,15 @@ export default function About({ personal }) {
     },
     {
       id: "info-avail",
-      label: "Disponibilité",
-      value: "Immédiate (Stage & Projets)",
+      label: t.about.cards.availability,
+      value: t.about.availabilityValue,
       icon: Calendar,
       color: "bg-accent/10 dark:bg-accent-dark/20 border border-accent/20 dark:border-accent-dark/40 text-accent dark:text-accent-dark"
     },
     {
       id: "info-role",
-      label: "Spécialisation",
-      value: "Full Stack (React, Node, DB)",
+      label: t.about.cards.specialization,
+      value: t.about.specializationValue,
       icon: Terminal,
       color: "bg-accent/10 dark:bg-accent-dark/20 border border-accent/20 dark:border-accent-dark/40 text-accent dark:text-accent-dark"
     }
@@ -46,11 +49,11 @@ export default function About({ personal }) {
               <span className="w-8 h-[2px] bg-accent dark:bg-accent-dark rounded-full"></span>
 
               <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent dark:text-accent-dark">
-                À propos de moi
+                {t.about.tag}
               </span>
             </div>
             <h2 className="font-display font-bold text-3xl sm:text-4xl text-neutral-900 dark:text-white tracking-tight">
-              À propos de Moi<span className="text-accent dark:text-accent-dark">.</span>
+              {t.about.title}<span className="text-accent dark:text-accent-dark">.</span>
             </h2>
           </div>
         </Reveal>
@@ -80,8 +83,8 @@ export default function About({ personal }) {
                 <div className="absolute -top-4 -left-4 sm:-left-8 bg-white dark:bg-[#151928] border border-neutral-200/80 dark:border-neutral-800 rounded-2xl px-4 py-2.5 shadow-lg flex items-center gap-2.5">
                   <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
                   <div>
-                    <div className="text-[10px] uppercase font-bold text-neutral-400 dark:text-neutral-500 tracking-wider">Statut</div>
-                    <div className="text-xs font-bold text-neutral-800 dark:text-neutral-200">Actif</div>
+                    <div className="text-[10px] uppercase font-bold text-neutral-400 dark:text-neutral-500 tracking-wider">{t.about.statusLabel}</div>
+                    <div className="text-xs font-bold text-neutral-800 dark:text-neutral-200">{t.about.statusValue}</div>
                   </div>
                 </div>
 
@@ -91,8 +94,8 @@ export default function About({ personal }) {
                     <CheckCircle2 className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-[10px] uppercase font-bold text-neutral-400 dark:text-neutral-500 tracking-wider">Parcours</div>
-                    <div className="text-xs font-bold text-neutral-800 dark:text-neutral-200">Passerelles Numériques</div>
+                    <div className="text-[10px] uppercase font-bold text-neutral-400 dark:text-neutral-500 tracking-wider">{t.about.journeyLabel}</div>
+                    <div className="text-xs font-bold text-neutral-800 dark:text-neutral-200">{t.about.journeyValue}</div>
                   </div>
                 </div>
 
@@ -109,7 +112,7 @@ export default function About({ personal }) {
               </p>
 
               <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-300 leading-relaxed mb-8">
-                Curieux, méthodique et rigoureux, j'aime transformer des besoins concrets en applications web fluides et robustes, en accordant un soin méticuleux à l'architecture de la base de données, à la sécurité des flux (JWT, Prisma) et à la réactivité de l'interface (React, Tailwind CSS).
+                {t.about.bio}
               </p>
             </Reveal>
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { portfolioData } from "./data/portfolioData.js";
+import { LanguageProvider } from "./context/LanguageContext.jsx";
+import { usePortfolioData } from "./hooks/usePortfolioData.js";
 import Navbar from "./components/Navbar.jsx";
 import Hero from "./components/Hero.jsx";
 import About from "./components/About.jsx";
@@ -12,7 +13,9 @@ import Contact from "./components/Contact.jsx";
 import Footer from "./components/Footer.jsx";
 import CustomCursor from "./components/CustomCursor.jsx";
 
-export default function App() {
+function AppContent() {
+  const portfolioData = usePortfolioData();
+
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("portfolio-theme");
@@ -78,5 +81,13 @@ export default function App() {
       {/* Footer Section */}
       <Footer personal={portfolioData.personal} isDark={isDark} />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
   );
 }

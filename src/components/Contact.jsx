@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { Mail, Phone, MapPin, Send, CheckCircle2, Clock, MessageSquare, AlertCircle } from "lucide-react";
 import { Reveal } from "./AnimatedReveal.jsx";
 import { useGsapMagnetic } from "../hooks/useGsapEffects.js";
+import { useLanguage } from "../context/LanguageContext.jsx";
 
 export default function Contact({ personal }) {
+  const { t } = useLanguage();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -39,7 +42,7 @@ export default function Contact({ personal }) {
           email: formData.email,
           subject: formData.subject,
           message: formData.message,
-          from_name: `Portfolio — ${formData.name}`
+          from_name: `${t.contact.fromNamePrefix} — ${formData.name}`
         })
       });
 
@@ -49,10 +52,10 @@ export default function Contact({ personal }) {
         setIsSubmitted(true);
         setFormData({ name: "", email: "", subject: "", message: "" });
       } else {
-        setError("Une erreur est survenue. Réessayez ou contactez-moi directement par email.");
+        setError(t.contact.errorGeneric);
       }
     } catch (err) {
-      setError("Impossible d'envoyer le message. Vérifiez votre connexion et réessayez.");
+      setError(t.contact.errorNetwork);
     } finally {
       setLoading(false);
     }
@@ -66,14 +69,14 @@ export default function Contact({ personal }) {
             <div className="flex items-center gap-3 mb-4">
               <span className="w-8 h-[2px] bg-accent dark:bg-accent-dark rounded-full"></span>
               <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent dark:text-accent-dark">
-                Engageons le dialogue
+                {t.contact.tag}
               </span>
             </div>
             <h2 className="font-display font-bold text-3xl sm:text-4xl text-neutral-900 dark:text-white tracking-tight">
-              Travaillons Ensemble<span className="text-accent dark:text-accent-dark">.</span>
+              {t.contact.title}<span className="text-accent dark:text-accent-dark">.</span>
             </h2>
             <p className="text-neutral-500 dark:text-neutral-400 text-sm sm:text-base mt-2 max-w-2xl">
-              Vous avez un projet web ambitieux, une opportunité de stage ou une proposition de collaboration ? Envoyez-moi un message !
+              {t.contact.subtitle}
             </p>
           </div>
         </Reveal>
@@ -85,10 +88,10 @@ export default function Contact({ personal }) {
               <div className="order-1 bg-accent dark:bg-accent-dark p-7 sm:p-8 shadow-[0_20px_40px_-10px_rgba(var(--color-accent-rgb),0.4)] dark:shadow-[0_20px_40px_-10px_rgba(var(--color-accent-dark-rgb),0.4)] rounded-3xl flex flex-col justify-between">
                 <div>
                   <h3 className="font-display font-bold text-xl sm:text-2xl text-white mb-1">
-                    Contactez-moi
+                    {t.contact.cardTitle}
                   </h3>
                   <p className="text-xs text-accent-light dark:text-accent-dark-light/90 mb-7">
-                    Je réponds rapidement à chaque message.
+                    {t.contact.cardSubtitle}
                   </p>
 
                   <div className="space-y-5">
@@ -97,7 +100,7 @@ export default function Contact({ personal }) {
                         <Mail className="w-4 h-4" />
                       </div>
                       <div className="min-w-0">
-                        <span className="text-[10px] font-semibold text-accent-light dark:text-accent-dark-light uppercase tracking-wider">Email</span>
+                        <span className="text-[10px] font-semibold text-accent-light dark:text-accent-dark-light uppercase tracking-wider">{t.contact.labels.email}</span>
                         <a
                           href={`mailto:${personal.email}`}
                           className="block text-sm font-semibold text-white hover:text-accent-light dark:hover:text-accent-dark-light transition-colors truncate"
@@ -113,7 +116,7 @@ export default function Contact({ personal }) {
                           <Phone className="w-4 h-4" />
                         </div>
                         <div className="min-w-0">
-                          <span className="text-[10px] font-semibold text-accent-light dark:text-accent-dark-light uppercase tracking-wider">Téléphone</span>
+                          <span className="text-[10px] font-semibold text-accent-light dark:text-accent-dark-light uppercase tracking-wider">{t.contact.labels.phone}</span>
                           <a
                             href={`tel:${personal.phone.replace(/\s+/g, '')}`}
                             className="block text-sm font-semibold text-white hover:text-accent-light dark:hover:text-accent-dark-light transition-colors"
@@ -129,7 +132,7 @@ export default function Contact({ personal }) {
                         <MapPin className="w-4 h-4" />
                       </div>
                       <div className="min-w-0">
-                        <span className="text-[10px] font-semibold text-accent-light dark:text-accent-dark-light uppercase tracking-wider">Localisation</span>
+                        <span className="text-[10px] font-semibold text-accent-light dark:text-accent-dark-light uppercase tracking-wider">{t.contact.labels.location}</span>
                         <span className="block text-sm font-semibold text-white">
                           {personal.location}
                         </span>
@@ -141,46 +144,46 @@ export default function Contact({ personal }) {
                 <div className="mt-7 pt-5 border-t border-white/15 flex items-start gap-2.5">
                   <Clock className="w-4 h-4 text-accent-light dark:text-accent-dark-light shrink-0 mt-0.5" />
                   <span className="text-[11px] leading-relaxed font-medium text-accent-light/80 dark:text-accent-dark-light/80">
-                    Actuellement à la recherche d'un <strong className="text-white">stage conventionné</strong> ou de <strong className="text-white">missions freelance</strong>.
+                    {t.contact.availability.before} <strong className="text-white">{t.contact.availability.intern}</strong> {t.contact.availability.mid} <strong className="text-white">{t.contact.availability.freelance}</strong>.
                   </span>
                 </div>
               </div>
 
               {/* Formulaire */}
-              <div className="order-2 rounded-3xl bg-white dark:bg-[#121524] border border-neutral-200/80 dark:border-neutral-800 shadow-[0_10px_35px_-5px_rgba(0,0,0,0.06)] dark:shadow-[0_10px_35px_-5px_rgba(0,0,0,0.5)] p-6 sm:p-8 md:p-10 lg:p-12">
+              <div className="order-2 rounded-3xl bg-white dark:bg-[#121524] border border-neutral-200/80 -neutral-800 shadow-[0_10px_35px_-5px_rgba(0,0,0,0.06)] dark:shadow-[0_10px_35px_-5px_rgba(0,0,0,0.5)] p-6 sm:p-8 md:p-10 lg:p-12">
                 <h3 className="font-display font-bold text-xl sm:text-2xl text-neutral-900 dark:text-white mb-2 flex items-center gap-2">
                   <MessageSquare className="w-5 h-5 text-accent dark:text-accent-dark" />
-                  <span>Envoyer un message</span>
+                  <span>{t.contact.formTitle}</span>
                 </h3>
                 <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 mb-8">
-                  Remplissez ce formulaire et je vous répondrai dans les plus brefs délais.
+                  {t.contact.formSubtitle}
                 </p>
 
                 {isSubmitted ? (
                   <div
                     id="contact-success-message"
-                    className="p-8 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-center animate-in fade-in zoom-in-95 duration-300"
+                    className="p-8 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 -emerald-800 text-center animate-in fade-in zoom-in-95 duration-300"
                   >
                     <div className="w-14 h-14 rounded-full bg-emerald-100 dark:bg-emerald-900/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto mb-4">
                       <CheckCircle2 className="w-8 h-8" />
                     </div>
                     <h4 className="font-display font-bold text-xl text-neutral-900 dark:text-white mb-2">
-                      Message envoyé avec succès !
+                      {t.contact.successTitle}
                     </h4>
                     <p className="text-sm text-neutral-600 dark:text-neutral-300 max-w-md mx-auto mb-6">
-                      Merci pour votre prise de contact.
+                      {t.contact.successMessage}
                     </p>
                     <button
                       onClick={() => setIsSubmitted(false)}
                       className="px-6 py-2.5 rounded-xl font-semibold text-sm bg-emerald-600 hover:bg-emerald-700 text-white transition-colors cursor-pointer"
                     >
-                      Envoyer un autre message
+                      {t.contact.sendAnother}
                     </button>
                   </div>
                 ) : (
                   <form id="portfolio-contact-form" onSubmit={handleSubmit} className="space-y-5">
                     {error && (
-                      <div className="flex items-start gap-2.5 p-4 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 text-sm">
+                      <div className="flex items-start gap-2.5 p-4 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 -red-800 text-red-700 dark:text-red-300 text-sm">
                         <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
                         <span>{error}</span>
                       </div>
@@ -190,7 +193,7 @@ export default function Contact({ personal }) {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
                         <label htmlFor="contact-name" className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 uppercase tracking-wider mb-2">
-                          Votre Nom *
+                          {t.contact.fields.name}
                         </label>
                         <input
                           id="contact-name"
@@ -199,14 +202,14 @@ export default function Contact({ personal }) {
                           required
                           value={formData.name}
                           onChange={handleChange}
-                          placeholder="ex. Jean Dupont"
-                          className="w-full px-4 py-3 rounded-xl bg-[#FAFAFA] dark:bg-[#181c2f] border border-neutral-200/90 dark:border-neutral-700/80 text-sm text-neutral-800 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:border-accent dark:focus:border-accent-dark focus:ring-2 focus:ring-accent/10 dark:focus:ring-accent-dark/10 transition-all"
+                          placeholder={t.contact.placeholders.name}
+                          className="w-full px-4 py-3 rounded-xl bg-[#FAFAFA] dark:bg-[#181c2f] border border-neutral-200/90 -neutral-700/80 text-sm text-neutral-800 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:border-accent dark:focus:border-accent-dark focus:ring-2 focus:ring-accent/10 dark:focus:ring-accent-dark/10 transition-all"
                         />
                       </div>
 
                       <div>
                         <label htmlFor="contact-email" className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 uppercase tracking-wider mb-2">
-                          Votre Email *
+                          {t.contact.fields.email}
                         </label>
                         <input
                           id="contact-email"
@@ -215,8 +218,8 @@ export default function Contact({ personal }) {
                           required
                           value={formData.email}
                           onChange={handleChange}
-                          placeholder="ex. jean.dupont@entreprise.com"
-                          className="w-full px-4 py-3 rounded-xl bg-[#FAFAFA] dark:bg-[#181c2f] border border-neutral-200/90 dark:border-neutral-700/80 text-sm text-neutral-800 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:border-accent dark:focus:border-accent-dark focus:ring-2 focus:ring-accent/10 dark:focus:ring-accent-dark/10 transition-all"
+                          placeholder={t.contact.placeholders.email}
+                          className="w-full px-4 py-3 rounded-xl bg-[#FAFAFA] dark:bg-[#181c2f] border border-neutral-200/90 -neutral-700/80 text-sm text-neutral-800 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:border-accent dark:focus:border-accent-dark focus:ring-2 focus:ring-accent/10 dark:focus:ring-accent-dark/10 transition-all"
                         />
                       </div>
                     </div>
@@ -224,7 +227,7 @@ export default function Contact({ personal }) {
                     {/* Champ Objet */}
                     <div>
                       <label htmlFor="contact-subject" className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 uppercase tracking-wider mb-2">
-                        Objet du message *
+                        {t.contact.fields.subject}
                       </label>
                       <input
                         id="contact-subject"
@@ -233,15 +236,15 @@ export default function Contact({ personal }) {
                         required
                         value={formData.subject}
                         onChange={handleChange}
-                        placeholder="ex. Opportunité de stage / Projet Web"
-                        className="w-full px-4 py-3 rounded-xl bg-[#FAFAFA] dark:bg-[#181c2f] border border-neutral-200/90 dark:border-neutral-700/80 text-sm text-neutral-800 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:border-accent dark:focus:border-accent-dark focus:ring-2 focus:ring-accent/10 dark:focus:ring-accent-dark/10 transition-all"
+                        placeholder={t.contact.placeholders.subject}
+                        className="w-full px-4 py-3 rounded-xl bg-[#FAFAFA] dark:bg-[#181c2f] border border-neutral-200/90 -neutral-700/80 text-sm text-neutral-800 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:border-accent dark:focus:border-accent-dark focus:ring-2 focus:ring-accent/10 dark:focus:ring-accent-dark/10 transition-all"
                       />
                     </div>
 
                     {/* Champ Message */}
                     <div>
                       <label htmlFor="contact-message" className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 uppercase tracking-wider mb-2">
-                        Votre Message *
+                        {t.contact.fields.message}
                       </label>
                       <textarea
                         id="contact-message"
@@ -250,8 +253,8 @@ export default function Contact({ personal }) {
                         rows={5}
                         value={formData.message}
                         onChange={handleChange}
-                        placeholder="Présentez brièvement vos besoins ou votre proposition..."
-                        className="w-full px-4 py-3 rounded-xl bg-[#FAFAFA] dark:bg-[#181c2f] border border-neutral-200/90 dark:border-neutral-700/80 text-sm text-neutral-800 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:border-accent dark:focus:border-accent-dark focus:ring-2 focus:ring-accent/10 dark:focus:ring-accent-dark/10 transition-all resize-none"
+                        placeholder={t.contact.placeholders.message}
+                        className="w-full px-4 py-3 rounded-xl bg-[#FAFAFA] dark:bg-[#181c2f] border border-neutral-200/90 -neutral-700/80 text-sm text-neutral-800 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:border-accent dark:focus:border-accent-dark focus:ring-2 focus:ring-accent/10 dark:focus:ring-accent-dark/10 transition-all resize-none"
                       ></textarea>
                     </div>
 
@@ -264,10 +267,10 @@ export default function Contact({ personal }) {
                         className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-white bg-accent hover:bg-accent-hover dark:bg-accent-dark dark:hover:bg-accent-dark-hover shadow-sm shadow-accent/25 dark:shadow-sm dark:shadow-accent-dark/25 hover:shadow-md hover:shadow-accent/35 dark:hover:shadow-md dark:hover:shadow-accent-dark/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 text-sm cursor-pointer disabled:opacity-70"
                       >
                         {loading ? (
-                          <span>Envoi en cours...</span>
+                          <span>{t.contact.sending}</span>
                         ) : (
                           <>
-                            <span>Envoyer mon message</span>
+                            <span>{t.contact.submit}</span>
                             <Send className="w-4 h-4" />
                           </>
                         )}

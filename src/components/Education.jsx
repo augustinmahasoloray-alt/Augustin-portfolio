@@ -1,10 +1,13 @@
 import React from "react";
 import { GraduationCap, Calendar, MapPin } from "lucide-react";
 import { Reveal, StaggerContainer, StaggerItem } from "./AnimatedReveal.jsx";
+import { useLanguage } from "../context/LanguageContext.jsx";
 
 export default function Education({ education = [] }) {
+  const { t } = useLanguage();
+
   return (
-    <section id="formation" className="py-20 md:py-28 bg-white dark:bg-[#0e111b] relative border-y border-neutral-100 dark:border-neutral-800/80 transition-colors duration-300">
+    <section id="formation" className="py-20 md:py-28 bg-white dark:bg-[#0e111b] relative border-y border-neutral-100 -neutral-800/80 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
 
         {/* Section Header Tag */}
@@ -14,14 +17,14 @@ export default function Education({ education = [] }) {
               <span className="w-8 h-[2px] bg-accent dark:bg-accent-dark rounded-full"></span>
 
               <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent dark:text-accent-dark">
-                Parcours académique
+                {t.formation.tag}
               </span>
             </div>
             <h2 className="font-display font-bold text-3xl sm:text-4xl text-neutral-900 dark:text-white tracking-tight">
-              Formation & Diplômes<span className="text-accent dark:text-accent-dark">.</span>
+              {t.formation.title}<span className="text-accent dark:text-accent-dark">.</span>
             </h2>
             <p className="text-neutral-500 dark:text-neutral-400 text-sm sm:text-base mt-2 max-w-2xl">
-              Un apprentissage continu alliant rigueur académique, projets d'ingénierie web concrets et méthodes agiles.
+              {t.formation.subtitle}
             </p>
           </div>
         </Reveal>
@@ -31,23 +34,21 @@ export default function Education({ education = [] }) {
           {education.map((item) => (
             <StaggerItem key={item.id} yOffset={28}>
               <div
-                className={`h-full p-6 sm:p-8 rounded-2xl bg-[#FAFAFA] dark:bg-[#121524] border transition-all duration-300 flex flex-col justify-between relative group ${
-                  item.current
-                    ? "border-accent/30 dark:border-accent-dark/40 shadow-[0_4px_25px_-4px_rgba(111,29,27,0.1)] dark:shadow-[0_4px_25px_-4px_rgba(77,144,142,0.2)] hover:shadow-lg hover:border-accent dark:hover:border-accent-dark"
-                    : "border-neutral-200/80 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 hover:shadow-sm"
+                className={`h-full p-6 sm:p-8 rounded-2xl bg-[#FAFAFA] dark:bg-[#121524] border transition-all duration-300 flex flex-col justify-between relative group ${item.current
+                    ? "border-accent/30 -accent-dark/40 shadow-[0_4px_25px_-4px_rgba(111,29,27,0.1)] dark:shadow-[0_4px_25px_-4px_rgba(77,144,142,0.2)] hover:shadow-lg hover:border-accent dark:hover:border-accent-dark"
+                    : "border-neutral-200/80 -neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 hover:shadow-sm"
                   }`}
               >
                 <div>
                   {/* Header with Icon and Status */}
                   <div className="flex items-start justify-between gap-4 mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-white dark:bg-[#181c2f] border border-neutral-200/80 dark:border-neutral-700 shadow-xs flex items-center justify-center text-accent dark:text-accent-dark group-hover:scale-105 transition-transform">
+                    <div className="w-12 h-12 rounded-xl bg-white dark:bg-[#181c2f] border border-neutral-200/80 -neutral-700 shadow-xs flex items-center justify-center text-accent dark:text-accent-dark group-hover:scale-105 transition-transform">
                       <GraduationCap className="w-6 h-6" />
                     </div>
 
                     <span
-                      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${
-                        item.current
-                          ? "bg-accent/10 dark:bg-accent-dark/25 text-accent dark:text-accent-dark-light border border-accent/20 dark:border-accent-dark/40"
+                      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${item.current
+                          ? "bg-accent/10 dark:bg-accent-dark/25 text-accent dark:text-accent-dark-light border border-accent/20 -accent-dark/40"
                           : "bg-neutral-200/60 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300"
                         }`}
                     >
@@ -83,11 +84,11 @@ export default function Education({ education = [] }) {
                 </div>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-2 pt-4 border-t border-neutral-200/60 dark:border-neutral-800">
+                <div className="flex flex-wrap gap-2 pt-4 border-t border-neutral-200/60 -neutral-800">
                   {item.tags?.map((tag, idx) => (
                     <span
                       key={idx}
-                      className="text-[11px] font-medium px-2.5 py-1 rounded-lg bg-white dark:bg-[#181c2f] border border-neutral-200/70 dark:border-neutral-700 text-neutral-600 dark:text-neutral-300"
+                      className="text-[11px] font-medium px-2.5 py-1 rounded-lg bg-white dark:bg-[#181c2f] border border-neutral-200/70 -neutral-700 text-neutral-600 dark:text-neutral-300"
                     >
                       {tag}
                     </span>

@@ -1,8 +1,11 @@
 import React from "react";
 import { X, ExternalLink, CheckCircle, Globe } from "lucide-react";
 import { motion } from "motion/react";
+import { useLanguage } from "../context/LanguageContext.jsx";
 
 export default function ProjectModal({ project, onClose }) {
+  const { t } = useLanguage();
+
   if (!project) return null;
 
   return (
@@ -17,13 +20,13 @@ export default function ProjectModal({ project, onClose }) {
         exit={{ opacity: 0, scale: 0.95 }}
         transition={{ duration: 0.25, ease: "easeOut" }}
         id="project-modal-content"
-        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white dark:bg-[#121524] rounded-3xl p-6 sm:p-8 shadow-2xl border border-neutral-100 dark:border-neutral-800"
+        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white dark:bg-[#121524] rounded-3xl p-6 sm:p-8 shadow-2xl border border-neutral-100 -neutral-800"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close button */}
         <button
           onClick={onClose}
-          aria-label="Fermer la boîte de dialogue"
+          aria-label={t.projets.modal.closeAria}
           className="absolute top-5 right-5 p-2 rounded-xl text-neutral-400 dark:text-neutral-500 hover:text-neutral-700 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors z-20"
         >
           <X className="w-5 h-5" />
@@ -43,10 +46,10 @@ export default function ProjectModal({ project, onClose }) {
         </p>
 
         {/* Visual Banner */}
-        <div className="w-full h-48 sm:h-56 rounded-2xl mb-6 relative overflow-hidden shadow-inner border border-neutral-200/60 dark:border-neutral-800">
+        <div className="w-full h-48 sm:h-56 rounded-2xl mb-6 relative overflow-hidden shadow-inner border border-neutral-200/60 -neutral-800">
           <img
             src={project.image}
-            alt={`Aperçu du site ${project.title}`}
+            alt={t.projets.modal.previewAlt.replace("{title}", project.title)}
             className="w-full h-full object-cover object-top"
           />
 
@@ -57,7 +60,7 @@ export default function ProjectModal({ project, onClose }) {
             <span className="text-xs font-semibold px-3 py-1 rounded-full bg-white/20 backdrop-blur-xs text-white">
               {project.type}
             </span>
-            <span className="text-xs text-white/80 font-mono">Augustin • Projets</span>
+            <span className="text-xs text-white/80 font-mono">{t.projets.modal.watermark}</span>
           </div>
 
           <div className="absolute bottom-4 left-4 right-4 z-10">
@@ -73,7 +76,7 @@ export default function ProjectModal({ project, onClose }) {
         {/* Description */}
         <div className="mb-6">
           <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-2">
-            Description du Projet
+            {t.projets.modal.descriptionTitle}
           </h4>
           <p className="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed">
             {project.description}
@@ -84,13 +87,13 @@ export default function ProjectModal({ project, onClose }) {
         {Array.isArray(project.highlights) && project.highlights.length > 0 && (
           <div className="mb-6">
             <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-3">
-              Points Clés & Fonctionnalités
+              {t.projets.modal.highlightsTitle}
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {project.highlights.map((highlight, index) => (
                 <div
                   key={index}
-                  className="flex items-start gap-2 text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 bg-neutral-50 dark:bg-[#181c2f] p-3 rounded-xl border border-neutral-100 dark:border-neutral-800"
+                  className="flex items-start gap-2 text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 bg-neutral-50 dark:bg-[#181c2f] p-3 rounded-xl border border-neutral-100 -neutral-800"
                 >
                   <CheckCircle className="w-4 h-4 text-accent dark:text-accent-dark shrink-0 mt-0.5" />
                   <span>{highlight}</span>
@@ -104,13 +107,13 @@ export default function ProjectModal({ project, onClose }) {
         {Array.isArray(project.technologies) && project.technologies.length > 0 && (
           <div className="mb-8">
             <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-3">
-              Stack Technologique
+              {t.projets.modal.stackTitle}
             </h4>
             <div className="flex flex-wrap gap-2">
               {project.technologies.map((tech, idx) => (
                 <span
                   key={idx}
-                  className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-accent/10 dark:bg-accent-dark/25 text-accent dark:text-accent-dark-light border border-accent/20 dark:border-accent-dark/40"
+                  className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-accent/10 dark:bg-accent-dark/25 text-accent dark:text-accent-dark-light border border-accent/20 -accent-dark/40"
                 >
                   {tech}
                 </span>
@@ -120,12 +123,12 @@ export default function ProjectModal({ project, onClose }) {
         )}
 
         {/* Footer Actions */}
-        <div className="flex flex-wrap items-center justify-end gap-3 pt-4 border-t border-neutral-100 dark:border-neutral-800">
+        <div className="flex flex-wrap items-center justify-end gap-3 pt-4 border-t border-neutral-100 -neutral-800">
           <button
             onClick={onClose}
             className="px-5 py-2.5 text-sm font-semibold text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-xl transition-colors cursor-pointer"
           >
-            Fermer
+            {t.projets.modal.close}
           </button>
 
           {project.link && project.link !== "#" && (
@@ -133,10 +136,10 @@ export default function ProjectModal({ project, onClose }) {
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-accent dark:text-accent-dark bg-accent/10 dark:bg-accent-dark/25 hover:bg-accent/20 dark:hover:bg-accent-dark/40 border border-accent/20 dark:border-accent-dark/40 rounded-xl transition-all"
+              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-accent dark:text-accent-dark bg-accent/10 dark:bg-accent-dark/25 hover:bg-accent/20 dark:hover:bg-accent-dark/40 border border-accent/20 -accent-dark/40 rounded-xl transition-all"
             >
               <Globe className="w-4 h-4" />
-              <span>Visiter le site</span>
+              <span>{t.projets.modal.visitSite}</span>
             </a>
           )}
 
@@ -145,7 +148,7 @@ export default function ProjectModal({ project, onClose }) {
             onClick={onClose}
             className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-accent hover:bg-accent-hover dark:bg-accent-dark dark:hover:bg-accent-dark-hover rounded-xl shadow-sm transition-all"
           >
-            <span>Discuter de ce projet</span>
+            <span>{t.projets.modal.discussProject}</span>
             <ExternalLink className="w-4 h-4" />
           </a>
         </div>

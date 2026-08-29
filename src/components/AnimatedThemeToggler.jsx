@@ -32,13 +32,12 @@ export function AnimatedThemeToggler({ isDark, toggleTheme }) {
       type="button"
       onClick={handleClick}
       aria-label={isDark ? "Activer le mode clair" : "Activer le mode sombre"}
-      className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-white dark:bg-[#151928] border border-neutral-200/80 dark:border-neutral-800 shadow-xs hover:shadow-sm transition-all hover:scale-105 active:scale-95 cursor-pointer overflow-hidden"
+      className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-white dark:bg-[#151928] border border-neutral-200/80 -neutral-800 shadow-xs hover:shadow-sm transition-all hover:scale-105 active:scale-95 cursor-pointer overflow-hidden"
     >
       {/* Animation de fond (cercle qui tourne) */}
       <div
-        className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${
-          isAnimating ? "rotate-180" : "rotate-0"
-        }`}
+        className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${isAnimating ? "rotate-180" : "rotate-0"
+          }`}
       >
         <div className="absolute h-5 w-5 rounded-full bg-accent dark:bg-accent-dark opacity-10" />
       </div>

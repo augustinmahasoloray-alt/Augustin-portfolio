@@ -1,32 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { AnimatedThemeToggler } from "./AnimatedThemeToggler.jsx";
+import { useLanguage } from "../context/LanguageContext.jsx";
 
 export default function Navbar({ personal, isDark, toggleTheme }) {
+  const { language, toggleLanguage, t } = useLanguage();
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navLinks = [
-    { label: "Accueil", href: "#hero" },
-    { label: "À propos", href: "#about" },
-    { label: "Formation", href: "#formation" },
-    { label: "Compétences", href: "#competences" },
-    { label: "Projets", href: "#projets" },
-    { label: "Certifications", href: "#certifications" },
-    { label: "Passions", href: "#interets" },
-    { label: "Contact", href: "#contact" }
+    { label: t.nav.accueil, href: "#hero" },
+    { label: t.nav.about, href: "#about" },
+    { label: t.nav.formation, href: "#formation" },
+    { label: t.nav.competences, href: "#competences" },
+    { label: t.nav.projets, href: "#projets" },
+    { label: t.nav.certifications, href: "#certifications" },
+    { label: t.nav.interets, href: "#interets" },
+    { label: t.nav.contact, href: "#contact" }
   ];
 
   const scrollToSection = (e, href) => {
@@ -38,11 +37,7 @@ export default function Navbar({ personal, isDark, toggleTheme }) {
     const navbarHeight = document.getElementById("main-navbar")?.offsetHeight || 80;
     const targetPosition = el.getBoundingClientRect().top + window.scrollY - navbarHeight - 12;
 
-    window.scrollTo({
-      top: targetPosition,
-      behavior: "smooth"
-    });
-
+    window.scrollTo({ top: targetPosition, behavior: "smooth" });
     window.history.pushState(null, "", href);
   };
 
@@ -54,11 +49,11 @@ export default function Navbar({ personal, isDark, toggleTheme }) {
   return (
     <header
       id="main-navbar"
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 $
-        {isScrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
           ? "bg-white/90 dark:bg-[#0b0d14]/90 backdrop-blur-md shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_25px_-4px_rgba(0,0,0,0.5)] border-b border-neutral-100 dark:border-neutral-800/80 py-3"
           : "bg-[#FAFAFA]/80 dark:bg-[#0b0d14]/80 backdrop-blur-sm py-4 sm:py-5"
-        }`}
+      }`}
     >
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 flex items-center justify-between">
         {/* Logo Badge */}
@@ -76,7 +71,7 @@ export default function Navbar({ personal, isDark, toggleTheme }) {
               {personal.firstName}
             </span>
             <span className="text-[11px] text-neutral-500 dark:text-neutral-400 font-medium tracking-wide uppercase">
-              Full Stack Dev
+              {t.role}
             </span>
           </div>
         </a>
@@ -95,9 +90,19 @@ export default function Navbar({ personal, isDark, toggleTheme }) {
           ))}
         </nav>
 
-        {/* Theme Toggle + Contact Action Button */}
+        {/* Theme Toggle + Language Toggle + Contact Action Button */}
         <div className="flex items-center gap-2.5">
           <AnimatedThemeToggler isDark={isDark} toggleTheme={toggleTheme} />
+
+          <button
+            id="lang-toggle-btn"
+            type="button"
+            onClick={toggleLanguage}
+            aria-label={language === "fr" ? "Switch to English" : "Passer en français"}
+            className="flex items-center justify-center w-10 h-10 rounded-xl text-sm font-semibold text-neutral-700 dark:text-neutral-300 hover:text-accent dark:hover:text-accent-dark hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+          >
+            {language === "fr" ? "EN" : "FR"}
+          </button>
 
           <div className="hidden sm:flex items-center">
             <a
@@ -106,7 +111,7 @@ export default function Navbar({ personal, isDark, toggleTheme }) {
               onClick={(e) => scrollToSection(e, "#contact")}
               className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-accent hover:bg-accent-hover dark:bg-accent-dark dark:hover:bg-accent-dark-hover rounded-xl shadow-sm shadow-accent/25 dark:shadow-sm dark:shadow-accent-dark/25 hover:shadow-md hover:shadow-accent/35 dark:hover:shadow-md dark:hover:shadow-accent-dark/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
             >
-              <span>Me contacter</span>
+              <span>{t.cta}</span>
               <ArrowUpRight className="w-4 h-4" />
             </a>
           </div>
@@ -148,7 +153,7 @@ export default function Navbar({ personal, isDark, toggleTheme }) {
               onClick={(e) => handleLinkClick(e, "#contact")}
               className="w-full flex items-center justify-center gap-2 py-3 text-sm font-semibold text-white bg-accent hover:bg-accent-hover dark:bg-accent-dark dark:hover:bg-accent-dark-hover rounded-xl shadow-sm transition-all"
             >
-              <span>Me contacter</span>
+              <span>{t.cta}</span>
               <ArrowUpRight className="w-4 h-4" />
             </a>
           </div>

@@ -21,17 +21,19 @@ import { KeyRound } from "lucide-react";
 import { useState } from "react";
 import { Reveal } from "./AnimatedReveal.jsx";
 import { motion, AnimatePresence } from "motion/react";
+import { useLanguage } from "../context/LanguageContext.jsx";
 
 export default function Skills({ skills = [] }) {
+  const { t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState("all");
 
   const categories = [
-    { id: "all", label: "Toutes les compétences" },
-    { id: "backend", label: "Backend & API" },
-    { id: "database", label: "Bases de Données & ORM" },
-    { id: "frontend", label: "Frontend" },
-    { id: "deployment", label: "Déploiement" },
-    { id: "tools", label: "Outils & Services" }
+    { id: "all", label: t.competences.categories.all },
+    { id: "backend", label: t.competences.categories.backend },
+    { id: "database", label: t.competences.categories.database },
+    { id: "frontend", label: t.competences.categories.frontend },
+    { id: "deployment", label: t.competences.categories.deployment },
+    { id: "tools", label: t.competences.categories.tools }
   ];
 
   const getSkillIcon = (id) => {
@@ -80,7 +82,18 @@ export default function Skills({ skills = [] }) {
   };
 
   const getBadgeStyle = (skill) => {
-    return "bg-accent/10 dark:bg-accent-dark/25 text-accent dark:text-accent-dark-light border border-accent/20 dark:border-accent-dark/40";
+    return "bg-accent/10 dark:bg-accent-dark/25 text-accent dark:text-accent-dark-light border border-accent/20 -accent-dark/40";
+  };
+
+  const getCategoryLabel = (category) => {
+    const labels = {
+      backend: t.competences.categoryLabels.backend,
+      database: t.competences.categoryLabels.database,
+      frontend: t.competences.categoryLabels.frontend,
+      deployment: t.competences.categoryLabels.deployment,
+      tools: t.competences.categoryLabels.tools,
+    };
+    return labels[category] || "";
   };
 
   const filteredSkills = activeCategory === "all"
@@ -96,14 +109,14 @@ export default function Skills({ skills = [] }) {
             <div className="flex items-center gap-3 mb-4">
               <span className="w-8 h-[2px] bg-accent dark:bg-accent-dark rounded-full"></span>
               <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent dark:text-accent-dark">
-                Compétences maîtrisées
+                {t.competences.tag}
               </span>
             </div>
             <h2 className="font-display font-bold text-3xl sm:text-4xl text-neutral-900 dark:text-white tracking-tight">
-              Stack Technique & Savoir-Faire<span className="text-accent dark:text-accent-dark">.</span>
+              {t.competences.title}<span className="text-accent dark:text-accent-dark">.</span>
             </h2>
             <p className="text-neutral-500 dark:text-neutral-400 text-sm sm:text-base mt-2 max-w-2xl">
-              Technologies et outils que j'utilise au quotidien pour développer des architectures web stables et performantes.
+              {t.competences.subtitle}
             </p>
           </div>
         </Reveal>
@@ -114,11 +127,10 @@ export default function Skills({ skills = [] }) {
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
-                  activeCategory === cat.id
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${activeCategory === cat.id
                     ? "bg-accent text-white shadow-sm shadow-accent/25 dark:bg-accent-dark dark:text-white dark:shadow-sm dark:shadow-accent-dark/25"
-                    : "bg-white dark:bg-[#121524] text-neutral-600 dark:text-neutral-300 border border-neutral-200/80 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-[#181c2f]"
-                }`}
+                    : "bg-white dark:bg-[#121524] text-neutral-600 dark:text-neutral-300 border border-neutral-200/80 -neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-[#181c2f]"
+                  }`}
               >
                 {cat.label}
               </button>
@@ -143,11 +155,11 @@ export default function Skills({ skills = [] }) {
                     ease: [0.21, 0.47, 0.32, 0.98]
                   }}
                 >
-                  <div className="h-full p-5 sm:p-6 rounded-2xl bg-white dark:bg-[#121524] border border-neutral-200/80 dark:border-neutral-800 shadow-xs hover:shadow-md hover:border-accent/40 dark:hover:border-accent-dark/40 transition-all duration-200 flex flex-col justify-between group">
+                  <div className="h-full p-5 sm:p-6 rounded-2xl bg-white dark:bg-[#121524] border border-neutral-200/80 -neutral-800 shadow-xs hover:shadow-md hover:border-accent/40 dark:hover:border-accent-dark/40 transition-all duration-200 flex flex-col justify-between group">
                     <div>
                       <div className="flex items-center justify-between gap-4 mb-3">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-xl bg-white dark:bg-neutral-100 border border-neutral-100 dark:border-neutral-200 flex items-center justify-center group-hover:scale-105 transition-transform shadow-xs">
+                          <div className="w-10 h-10 rounded-xl bg-white dark:bg-neutral-100 border border-neutral-100 -neutral-200 flex items-center justify-center group-hover:scale-105 transition-transform shadow-xs">
                             <Icon className="w-5 h-5" style={{ color }} />
                           </div>
                           <div>
@@ -155,11 +167,7 @@ export default function Skills({ skills = [] }) {
                               {skill.name}
                             </h3>
                             <span className="text-[11px] text-neutral-400 dark:text-neutral-500 font-medium">
-                              {skill.category === "backend" && "Architecture & API"}
-                              {skill.category === "database" && "Gestion des Données"}
-                              {skill.category === "frontend" && "Interface & Client"}
-                              {skill.category === "deployment" && "Hébergement & CI/CD"}
-                              {skill.category === "tools" && "Productivité & Médias"}
+                              {getCategoryLabel(skill.category)}
                             </span>
                           </div>
                         </div>
@@ -176,7 +184,7 @@ export default function Skills({ skills = [] }) {
 
                     <div className="pt-2">
                       <div className="flex items-center justify-between text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-1.5">
-                        <span>Niveau d'aisance</span>
+                        <span>{t.competences.proficiency}</span>
                         <span className="font-bold text-accent dark:text-accent-dark">{skill.percentage}%</span>
                       </div>
                       <div className="w-full h-2 rounded-full bg-neutral-100 dark:bg-neutral-800 overflow-hidden">

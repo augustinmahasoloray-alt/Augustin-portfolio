@@ -1,8 +1,11 @@
 import React from "react";
 import { ArrowUp, Github, Linkedin, Facebook, Instagram, Mail, Heart } from "lucide-react";
 import { SiReact, SiTailwindcss, SiNodedotjs } from "react-icons/si";
+import { useLanguage } from "../context/LanguageContext.jsx";
 
 export default function Footer({ personal, isDark }) {
+  const { t } = useLanguage();
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -20,11 +23,11 @@ export default function Footer({ personal, isDark }) {
   ];
 
   return (
-    <footer id="portfolio-footer" className="bg-white dark:bg-[#07090f] border-t border-neutral-200/80 dark:border-neutral-800/80 py-12 transition-colors duration-300">
+    <footer id="portfolio-footer" className="bg-white dark:bg-[#07090f] border-t border-neutral-200/80 -neutral-800/80 py-12 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
 
         {/* Top footer row */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-neutral-100 dark:border-neutral-800/60">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-neutral-100 -neutral-800/60">
 
           {/* Brand Info */}
           <div className="flex items-center gap-3">
@@ -45,8 +48,8 @@ export default function Footer({ personal, isDark }) {
           <div className="flex items-center gap-3">
             <a
               href={`mailto:${personal.email}`}
-              aria-label="Email"
-              className="w-10 h-10 rounded-xl bg-neutral-50 dark:bg-[#121524] border border-neutral-200/80 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 hover:text-accent dark:hover:text-accent-dark hover:border-accent/40 dark:hover:border-accent-dark/40 flex items-center justify-center transition-all hover:scale-105"
+              aria-label={t.footer.aria.email}
+              className="w-10 h-10 rounded-xl bg-neutral-50 dark:bg-[#121524] border border-neutral-200/80 -neutral-800 text-neutral-600 dark:text-neutral-400 hover:text-accent dark:hover:text-accent-dark hover:border-accent/40 dark:hover:border-accent-dark/40 flex items-center justify-center transition-all hover:scale-105"
             >
               <Mail className="w-4 h-4" />
             </a>
@@ -55,8 +58,8 @@ export default function Footer({ personal, isDark }) {
               href={personal?.socialLinks?.github || "https://github.com"}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="GitHub"
-              className="w-10 h-10 rounded-xl bg-neutral-50 dark:bg-[#121524] border border-neutral-200/80 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 hover:text-accent dark:hover:text-accent-dark hover:border-accent/40 dark:hover:border-accent-dark/40 flex items-center justify-center transition-all hover:scale-105"
+              aria-label={t.footer.aria.github}
+              className="w-10 h-10 rounded-xl bg-neutral-50 dark:bg-[#121524] border border-neutral-200/80 -neutral-800 text-neutral-600 dark:text-neutral-400 hover:text-accent dark:hover:text-accent-dark hover:border-accent/40 dark:hover:border-accent-dark/40 flex items-center justify-center transition-all hover:scale-105"
             >
               <Github className="w-4 h-4" />
             </a>
@@ -65,8 +68,8 @@ export default function Footer({ personal, isDark }) {
               href={personal?.socialLinks?.linkedin || "https://linkedin.com"}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              className="w-10 h-10 rounded-xl bg-neutral-50 dark:bg-[#121524] border border-neutral-200/80 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 hover:text-accent dark:hover:text-accent-dark hover:border-accent/40 dark:hover:border-accent-dark/40 flex items-center justify-center transition-all hover:scale-105"
+              aria-label={t.footer.aria.linkedin}
+              className="w-10 h-10 rounded-xl bg-neutral-50 dark:bg-[#121524] border border-neutral-200/80 -neutral-800 text-neutral-600 dark:text-neutral-400 hover:text-accent dark:hover:text-accent-dark hover:border-accent/40 dark:hover:border-accent-dark/40 flex items-center justify-center transition-all hover:scale-105"
             >
               <Linkedin className="w-4 h-4" />
             </a>
@@ -75,8 +78,8 @@ export default function Footer({ personal, isDark }) {
               href={personal?.socialLinks?.facebook || "https://facebook.com"}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Facebook"
-              className="w-10 h-10 rounded-xl bg-neutral-50 dark:bg-[#121524] border border-neutral-200/80 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 hover:text-accent dark:hover:text-accent-dark hover:border-accent/40 dark:hover:border-accent-dark/40 flex items-center justify-center transition-all hover:scale-105"
+              aria-label={t.footer.aria.facebook}
+              className="w-10 h-10 rounded-xl bg-neutral-50 dark:bg-[#121524] border border-neutral-200/80 -neutral-800 text-neutral-600 dark:text-neutral-400 hover:text-accent dark:hover:text-accent-dark hover:border-accent/40 dark:hover:border-accent-dark/40 flex items-center justify-center transition-all hover:scale-105"
             >
               <Facebook className="w-4 h-4" />
             </a>
@@ -85,8 +88,8 @@ export default function Footer({ personal, isDark }) {
               href={personal?.socialLinks?.instagram || "https://instagram.com"}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Instagram"
-              className="w-10 h-10 rounded-xl bg-neutral-50 dark:bg-[#121524] border border-neutral-200/80 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 hover:text-accent dark:hover:text-accent-dark hover:border-accent/40 dark:hover:border-accent-dark/40 flex items-center justify-center transition-all hover:scale-105"
+              aria-label={t.footer.aria.instagram}
+              className="w-10 h-10 rounded-xl bg-neutral-50 dark:bg-[#121524] border border-neutral-200/80 -neutral-800 text-neutral-600 dark:text-neutral-400 hover:text-accent dark:hover:text-accent-dark hover:border-accent/40 dark:hover:border-accent-dark/40 flex items-center justify-center transition-all hover:scale-105"
             >
               <Instagram className="w-4 h-4" />
             </a>
@@ -94,9 +97,9 @@ export default function Footer({ personal, isDark }) {
         </div>
 
         {/* Stack technique row — logos cliquables vers le dépôt du code */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 py-6 border-b border-neutral-100 dark:border-neutral-800/60">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 py-6 border-b border-neutral-100 -neutral-800/60">
           <span className="text-xs font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider">
-            Réalisé avec
+            {t.footer.builtWith}
           </span>
           <div className="flex items-center gap-3">
             {techStack.map(({ name, Icon, color }) => (
@@ -105,9 +108,9 @@ export default function Footer({ personal, isDark }) {
                 href={repoLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`Voir le code — ${name}`}
-                title={`Voir le code (${name})`}
-                className="w-10 h-10 rounded-xl bg-neutral-50 dark:bg-white border border-neutral-200/80 dark:border-neutral-200 flex items-center justify-center transition-all hover:scale-105 hover:shadow-sm"
+                aria-label={t.footer.viewCodeAria.replace("{name}", name)}
+                title={t.footer.viewCodeTitle.replace("{name}", name)}
+                className="w-10 h-10 rounded-xl bg-neutral-50 dark:bg-white border border-neutral-200/80 -neutral-200 flex items-center justify-center transition-all hover:scale-105 hover:shadow-sm"
               >
                 <Icon className="w-5 h-5" style={{ color }} />
               </a>
@@ -123,9 +126,9 @@ export default function Footer({ personal, isDark }) {
 
           <button
             onClick={scrollToTop}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-neutral-50 dark:bg-[#121524] border border-neutral-200/80 dark:border-neutral-800 hover:bg-accent/10 hover:text-accent dark:hover:text-accent-dark-light dark:hover:bg-accent-dark/20 text-neutral-600 dark:text-neutral-400 transition-all cursor-pointer"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-neutral-50 dark:bg-[#121524] border border-neutral-200/80 -neutral-800 hover:bg-accent/10 hover:text-accent dark:hover:text-accent-dark-light dark:hover:bg-accent-dark/20 text-neutral-600 dark:text-neutral-400 transition-all cursor-pointer"
           >
-            <span>Haut de page</span>
+            <span>{t.footer.backToTop}</span>
             <ArrowUp className="w-3.5 h-3.5" />
           </button>
         </div>

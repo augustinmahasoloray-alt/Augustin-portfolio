@@ -100,7 +100,7 @@ export default function CustomCursor() {
     >
       {/* Outer Halo Ring (36px base, trailing spring) */}
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none rounded-full border border-accent dark:border-accent-dark"
+        className="fixed top-0 left-0 pointer-events-none rounded-full border border-accent -accent-dark"
         style={{
           x: ringX,
           y: ringY,

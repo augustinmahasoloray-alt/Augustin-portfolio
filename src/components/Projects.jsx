@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import ProjectModal from "./ProjectModal.jsx";
 import { Reveal, StaggerContainer, StaggerItem } from "./AnimatedReveal.jsx";
+import { useLanguage } from "../context/LanguageContext.jsx";
 
 export default function Projects({ projects = [] }) {
+  const { t } = useLanguage();
   const [selectedProject, setSelectedProject] = useState(null);
 
   const openModal = (project) => {
@@ -30,14 +32,14 @@ export default function Projects({ projects = [] }) {
             <div className="flex items-center gap-3 mb-4">
               <span className="w-8 h-[2px] bg-accent dark:bg-accent-dark rounded-full"></span>
               <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent dark:text-accent-dark">
-                Réalisations phares
+                {t.projets.tag}
               </span>
             </div>
             <h2 className="font-display font-bold text-3xl sm:text-4xl text-neutral-900 dark:text-white tracking-tight">
-              Projets & Développements<span className="text-accent dark:text-accent-dark">.</span>
+              {t.projets.title}<span className="text-accent dark:text-accent-dark">.</span>
             </h2>
             <p className="text-neutral-500 dark:text-neutral-400 text-sm sm:text-base mt-2 max-w-2xl">
-              Une sélection d'applications complètes illustrant la maîtrise de l'écosystème web moderne, de la base de données à l'interface client.
+              {t.projets.subtitle}
             </p>
           </div>
         </Reveal>
@@ -54,7 +56,7 @@ export default function Projects({ projects = [] }) {
                   <div className="w-full h-44 sm:h-52 rounded-2xl mb-6 relative overflow-hidden shadow-sm border border-neutral-200/60 dark:border-neutral-800">
                     <img
                       src={project.image}
-                      alt={`Aperçu du site ${project.title}`}
+                      alt={t.projets.cardAlt.replace("{title}", project.title)}
                       className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                     />
 
@@ -70,7 +72,7 @@ export default function Projects({ projects = [] }) {
                       {project.link && project.link !== "#" && (
                         <button
                           onClick={(e) => handleVisitSite(e, project.link)}
-                          aria-label={`Visiter le site ${project.title}`}
+                          aria-label={t.projets.visitAria.replace("{title}", project.title)}
                           className="w-8 h-8 rounded-full bg-white/90 dark:bg-black/60 backdrop-blur-sm flex items-center justify-center text-neutral-800 dark:text-white hover:bg-accent dark:hover:bg-accent-dark hover:text-white dark:hover:text-white transition-colors"
                         >
                           <ExternalLink className="w-4 h-4" />
@@ -117,7 +119,7 @@ export default function Projects({ projects = [] }) {
                   </div>
 
                   <span className="inline-flex items-center gap-1 text-xs font-bold text-accent dark:text-accent-dark group-hover:translate-x-0.5 transition-transform shrink-0">
-                    <span>Détails</span>
+                    <span>{t.projets.details}</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
                   </span>
                 </div>
