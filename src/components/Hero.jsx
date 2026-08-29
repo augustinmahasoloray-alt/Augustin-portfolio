@@ -112,7 +112,7 @@ export default function Hero({ personal, isDark }) {
                 <div ref={primaryCtaRef} className="w-full sm:w-auto inline-block">
                   <a
                     id="hero-cta-work"
-                    href="/images/augustin.png"
+                    href="/cv/CV_MAHASOLORAY_Augustin.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl font-semibold text-white bg-accent hover:bg-accent-hover dark:bg-accent-dark dark:hover:bg-accent-dark-hover shadow-sm shadow-accent/25 hover:shadow-md hover:shadow-accent/35 dark:shadow-sm dark:shadow-accent-dark/25 dark:hover:shadow-md dark:hover:shadow-accent-dark/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 text-base"
