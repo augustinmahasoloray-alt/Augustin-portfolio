@@ -55,7 +55,7 @@ export default function Footer({ personal, isDark }) {
             </a>
 
             <a
-              href={personal?.socialLinks?.github || "https://github.com"}
+              href={personal?.socialLinks?.github || "https://github.com/augustinmahasoloray-alt"}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={t.footer.aria.github}
@@ -65,7 +65,7 @@ export default function Footer({ personal, isDark }) {
             </a>
 
             <a
-              href={personal?.socialLinks?.linkedin || "https://linkedin.com"}
+              href={personal?.socialLinks?.linkedin || "https://www.linkedin.com/in/augustin-mahasoloray-087226425?utm_source=share_via&utm_content=profile&utm_medium=member_android"}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={t.footer.aria.linkedin}
@@ -75,7 +75,7 @@ export default function Footer({ personal, isDark }) {
             </a>
 
             <a
-              href={personal?.socialLinks?.facebook || "https://facebook.com"}
+              href={personal?.socialLinks?.facebook || "https://www.facebook.com/augustin.misaimanatrimahavita"}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={t.footer.aria.facebook}
@@ -85,7 +85,7 @@ export default function Footer({ personal, isDark }) {
             </a>
 
             <a
-              href={personal?.socialLinks?.instagram || "https://instagram.com"}
+              href={personal?.socialLinks?.instagram || "https://www.instagram.com/augustinonjaniaina?igsh=bTg1aHZ3c2g0anQw"}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={t.footer.aria.instagram}
