@@ -65,7 +65,7 @@ export default function Footer({ personal, isDark }) {
             </a>
 
             <a
-              href={personal?.socialLinks?.linkedin || "https://www.linkedin.com/in/augustin-mahasoloray-087226425?utm_source=share_via&utm_content=profile&utm_medium=member_android"}
+              href={personal?.socialLinks?.linkedin || "https://www.linkedin.com/in/augustin-mahasoloray-087226425"}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={t.footer.aria.linkedin}
@@ -85,7 +85,7 @@ export default function Footer({ personal, isDark }) {
             </a>
 
             <a
-              href={personal?.socialLinks?.instagram || "https://www.instagram.com/augustinonjaniaina?igsh=bTg1aHZ3c2g0anQw"}
+              href={personal?.socialLinks?.instagram || "https://www.instagram.com/augustinonjaniaina/"}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={t.footer.aria.instagram}
