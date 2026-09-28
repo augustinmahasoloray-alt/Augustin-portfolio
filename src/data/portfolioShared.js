@@ -6,7 +6,7 @@ export const portfolioShared = {
     initials: "AM",
     location: "Antananarivo, Madagascar",
     email: "augustinmahasoloray@gmail.com",
-    phone: "+261 34 00 000 00",
+    phone: "+261 38 79 416 00",
     brandName: "Augment",
     socialLinks: {
       github: "https://github.com/",
